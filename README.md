@@ -7,7 +7,7 @@ The goal of this challenge is:
  - Understanding how then ASP.NET MVC pattern holds together
  - Understanding how the ASP.NET View templating language works
  - Understanding how to access data (DB) using EF (and the repository pattern)
- - Creating EF database migrations 
+ - Creating EF database migrations
  - Creating webAPI controlers
 
 
@@ -83,48 +83,69 @@ It should look something like this:
 
 ```
  
-The `ApplicationDbContext` is the class we will use to access the database. We have added a `DbSet` property of type `SimpleWord` called `SimpleWords`. __ Note how the class name is singular and the property name is plural. __
+The `ApplicationDbContext` is the class we will use to access the database. We have added a `DbSet` property of type `SimpleWord` called `SimpleWords`. _Note how the class name is singular and the property name is plural._
 Once we have run a migration (we will get to that in a moment) we will have created a Database with a table called `SimpleWords` with a couple of columns, `Id` and `Word`. Later we will be able to create an instance of the `ApplicationDbContext` class. This is an abstraction of the database. On that instance we can access the `SimpleWords` property, which is an abstraction of the table in the DB. `SimpleWords` acts like an collection of the rows in the database. 
 
-We can perform CRUD operations against the `ApplicationDbContext`. 
-
-
+We can perform CRUD operations against the `ApplicationDbContext` like this:
 ```C#
 
- ApplicationDbContext db = new ApplicationDbContext();
+   ApplicationDbContext db = new ApplicationDbContext();
+  
+   //Create
+   SimpleWord wordToInsert = new SimpleWord()
+   {
+       Word = "Coffee"
+   };
+  
+   db.SimpleWords.Add(wordToInsert);
+   db.SaveChanges(); //This pushes the changes from memory into the db
+  
+   //Read by id
+    SimpleWord wordReadOut = db.SimpleWords.Find(1);
+  
+   //Read (filter words which begin with "C")
+   IQueryable<SimpleWord> wordsReadOut = db.SimpleWords.Where(w => w.Word.StartsWith("C"));
+  
+  
+   //Update
+   SimpleWord wordToUpdate = db.SimpleWords.Find(1);
+   wordToUpdate.Word = "Tea";
+   db.SaveChanges(); //This pushes the changes from memory into the db
 
 
-            //Create
-            SimpleWord wordToInsert = new SimpleWord()
-            {
-                Word = "Coffee"
-            };
-
-            db.SimpleWords.Add(wordToInsert);
-            db.SaveChanges(); //This pushes the changes from memory into the db
-
-            //Read by id
-             SimpleWord wordReadOut = db.SimpleWords.Find(1);
-
-            //Read (filter words which begin with "C")
-            IQueryable<SimpleWord> wordsReadOut = db.SimpleWords.Where(w => w.Word.StartsWith("C"));
-
-
-            //Update
-            SimpleWord wordToUpdate = db.SimpleWords.Find(1);
-            wordToUpdate.Word = "Tea";
-            db.SaveChanges(); //This pushes the changes from memory into the db
-
-
-            //Delete
-
-            SimpleWord wordToDelete = db.SimpleWords.Find(1);
-            db.SimpleWords.Remove(wordToDelete);
-            db.SaveChanges(); //This pushes the changes from memory into the db
-
-
-
+   //Delete
+  
+   SimpleWord wordToDelete = db.SimpleWords.Find(1);
+   db.SimpleWords.Remove(wordToDelete);
+   db.SaveChanges(); //This pushes the changes from memory into the db
+ 
 ```
+
+##Migrations
+
+Cool! So we have a Model which is an abstraction of the database table we want.
+
+We need to create a dataBase migration file, and update the database with our table schema.
+
+
+ - Find the package manager window
+  - Press `Ctrl+Q` or click the Quick findbox (Top Right)
+  - Start typing _Package_
+  - Select the option `View > OtherWindows > Package Manager Console`
+ - Type `enable migrations` (Enter)
+  -_This will generate some files_
+ - Type `add-migration <migration name>`
+  -_The `<migration name>` needs to be diffrent for each db migration. Something like `add-migration Add_SimpleWord_Table`
+  -This will generate a Migration with `Up()` and `Down()` methods* 
+ - Type `update-database`
+  - This will actually update the database schema 
+ 
+*The `Up()` and `Down()` methods have instructions to add and remove schema from the database. This lets you version control you database schemma (_Very useful, saves a lot of pain_).
+
+You may also find that the `Up()` and `Down()` methods have instructions for some tables like `"dbo.AspNetRoles"`. These are some out of the box identiy (user login) management functionality. You should be able to find the `"dbo.SimpleWords"` instructions in there some where (_Normally it is a good idea to create a migration, for the identiy management tables first, before you add a `DbSet` of anything else so that they dont get mixed together._)
+
+
+
 
 
 
