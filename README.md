@@ -20,7 +20,7 @@ The goal of this challenge is:
  - Have a look at this comic: [Computer problems https://xkcd.com/722/](https://xkcd.com/722/)
  - Then have a look at this one: [Up Goer Five https://xkcd.com/1133/](https://xkcd.com/1133/)
  
-Both of those comics are explaining technical things using the ~1,000~ ten hundred most common words in english.
+Both of those comics are explaining technical things using the ~~1,000~~ ten hundred most common words in english.
 
 Also if you have time, watch these two music videos
  - ["Space Oddity” By David Bowie (orignal)](https://www.youtube.com/watch?v=D67kmFzSh_o) <-- Only need to watch first twenty seconds; unless you are a big David Bowie liking-person.
@@ -38,11 +38,11 @@ The first version of this is going to be a little rubbish, & may be better if yo
  
   - Create a new ASP.NET MVC solution (Or create a branch on an [emptyish one](../../../dotNet_SillyLittleSiteOnAzure)
   - In the Models Folder create a new class `SimpleWord`
-   - You can create a new class by either:
+   - *You can create a new class by either*:
     - Press `Shift+Alt+C`
     - Right click a folder -> Add -> Class
   - Add an `int` proptery called `Id`
-   - Hint quick way: 
+   - *Hint quick way*: 
     - type `prop`
     - press `Tab`
     - type `int`
@@ -84,7 +84,9 @@ It should look something like this:
 ```
  
 The ApplicationDbContext is the class we will use to access the database. We have added a `DbSet` proptery of type `SimpleWord` called `SimpleWords`. __ Note how the class name is singular and the proptery name is plural. __
-Once we have run a migration (we will get to that in a moment) we will have created a Database with a table called `SimpleWords` with a couple of columns, `Id` and `Word`. Later we will be able to create an instance of the `ApplicationDbContext` class. This is an abstraction of the database. On that instance we can access the `SimpleWords` proptery, which is an abstraction of the table in the DB. `SimpleWords` acts like an collection of the rows in the database. We can perform CRUD operations against it. 
+Once we have run a migration (we will get to that in a moment) we will have created a Database with a table called `SimpleWords` with a couple of columns, `Id` and `Word`. Later we will be able to create an instance of the `ApplicationDbContext` class. This is an abstraction of the database. On that instance we can access the `SimpleWords` proptery, which is an abstraction of the table in the DB. `SimpleWords` acts like an collection of the rows in the database. 
+
+We can perform CRUD operations against the `ApplicationDbContext`. 
 
 
 ``` cs
