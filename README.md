@@ -20,10 +20,10 @@ The goal of this challenge is:
  - Have a look at this comic: [Computer problems https://xkcd.com/722/](https://xkcd.com/722/)
  - Then have a look at this one: [Up Goer Five https://xkcd.com/1133/](https://xkcd.com/1133/)
  
-Both of those comics are explaining technical things using the ~~1,000~~ ten hundred most common words in english.
+Both of those comics are explaining technical things using the ~~1,000~~ *ten hundred* most common words in english.
 
 Also if you have time, watch these two music videos
- - ["Space Oddity” By David Bowie (orignal)](https://www.youtube.com/watch?v=D67kmFzSh_o) <-- Only need to watch first twenty seconds; unless you are a big David Bowie liking-person.
+ - ["Space Oddity” By David Bowie (orignal)](https://www.youtube.com/watch?v=D67kmFzSh_o) <-- Only need to watch first twenty seconds; unless you are a big David Bowie ~~fan~~ _liking-person_.
  - ["Weird space thing" (Simple English) ](https://www.youtube.com/watch?v=ygrdAvmr-MA)
  
  
@@ -38,21 +38,21 @@ The first version of this is going to be a little rubbish, & may be better if yo
  
   - Create a new ASP.NET MVC solution (Or create a branch on an [emptyish one](../../../dotNet_SillyLittleSiteOnAzure))
   - In the Models Folder create a new class `SimpleWord`
-   - **You can create a new class by either**:
-    - Press `Shift+Alt+C`
-    - Right click a folder -> Add -> Class
+   - *You can create a new class by either*:
+     - Press `Shift+Alt+C`
+     - Right click a folder -> Add -> Class
   - Add an `int` property called `Id`
-   - **Hint quick way**: 
-    - type `prop`
-    - press `Tab`
-    - type `int`
-    - press `Tab`
-    - type `Id` 
+   - *Hint quick way*: 
+     - type `prop`
+     - press `Tab`
+     - type `int`
+     - press `Tab`
+     - type `Id` 
   - Add another `String` property `Word`
   
 It should look like this:
 
-``` cs
+```C#
 
   public class SimpleWord
   {
@@ -67,7 +67,7 @@ It should look like this:
 
 It should look something like this:
 
-``` cs
+```csharp
 
   public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
   {
@@ -89,7 +89,7 @@ Once we have run a migration (we will get to that in a moment) we will have crea
 We can perform CRUD operations against the `ApplicationDbContext`. 
 
 
-``` cs
+```C#
 
  ApplicationDbContext db = new ApplicationDbContext();
 
