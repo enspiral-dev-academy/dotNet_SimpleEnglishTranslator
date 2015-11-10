@@ -30,25 +30,25 @@ Also if you have time, watch these two music videos
 We are going to make our own version of this tool: [simplewriter](http://xkcd.com/simplewriter/)
 with a few improvments.
 
-The first version of this is going to be a little rubbish, & may be better if you just built in javascript. However we are going to improve on it ant the point is to learn about database access in .net not js.
+The first version of this is going to be a little rubbish, & may be better if you just built in javascript. However we are going to improve on it; and the point is to learn about database access in .net, not js.
 
 
  #Release 0 EF models and reading in some data
  
  
-  - Create a new ASP.NET MVC solution (Or create a branch on an [emptyish one](../../../dotNet_SillyLittleSiteOnAzure)
+  - Create a new ASP.NET MVC solution (Or create a branch on an [emptyish one](../../../dotNet_SillyLittleSiteOnAzure))
   - In the Models Folder create a new class `SimpleWord`
-   - *You can create a new class by either*:
+   - **You can create a new class by either**:
     - Press `Shift+Alt+C`
     - Right click a folder -> Add -> Class
-  - Add an `int` proptery called `Id`
-   - *Hint quick way*: 
+  - Add an `int` property called `Id`
+   - **Hint quick way**: 
     - type `prop`
     - press `Tab`
     - type `int`
     - press `Tab`
     - type `Id` 
-  - Add another `String` proptery `Word`
+  - Add another `String` property `Word`
   
 It should look like this:
 
@@ -63,7 +63,7 @@ It should look like this:
 ```
  - Open the file `Models/IdentityModels.cs`
  - Find the `ApplicationDbContext` class
- - Add a proptery of type `DbSet<SimpleWord>` called `SimpleWords`
+ - Add a property of type `DbSet<SimpleWord>` called `SimpleWords`
 
 It should look something like this:
 
@@ -71,7 +71,7 @@ It should look something like this:
 
   public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
   {
-      public DbSet<SimpleWord> SimpleWords { get; set; }
+      public DbSet<SimpleWord> SimpleWords { get; set; }  //Bit you should have added
       protected override void OnModelCreating(ModelBuilder builder)
       {
           base.OnModelCreating(builder);
@@ -83,8 +83,8 @@ It should look something like this:
 
 ```
  
-The ApplicationDbContext is the class we will use to access the database. We have added a `DbSet` proptery of type `SimpleWord` called `SimpleWords`. __ Note how the class name is singular and the proptery name is plural. __
-Once we have run a migration (we will get to that in a moment) we will have created a Database with a table called `SimpleWords` with a couple of columns, `Id` and `Word`. Later we will be able to create an instance of the `ApplicationDbContext` class. This is an abstraction of the database. On that instance we can access the `SimpleWords` proptery, which is an abstraction of the table in the DB. `SimpleWords` acts like an collection of the rows in the database. 
+The `ApplicationDbContext` is the class we will use to access the database. We have added a `DbSet` property of type `SimpleWord` called `SimpleWords`. __ Note how the class name is singular and the property name is plural. __
+Once we have run a migration (we will get to that in a moment) we will have created a Database with a table called `SimpleWords` with a couple of columns, `Id` and `Word`. Later we will be able to create an instance of the `ApplicationDbContext` class. This is an abstraction of the database. On that instance we can access the `SimpleWords` property, which is an abstraction of the table in the DB. `SimpleWords` acts like an collection of the rows in the database. 
 
 We can perform CRUD operations against the `ApplicationDbContext`. 
 
