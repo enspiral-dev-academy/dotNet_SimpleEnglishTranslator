@@ -35,6 +35,8 @@ The first version of this is going to be a little rubbish, & may be better if yo
 
  #Release 0 EF models and reading in some data
  
+ Entity Framework (EF) is one of several ORM (Object Relationl Mapper) tools for .Net It's the comtempory of Ruby's ActiveRecord.
+ 
  
   - Create a new ASP.NET MVC solution (Or create a branch on an [emptyish one](../../../dotNet_SillyLittleSiteOnAzure))
   - In the Models Folder create a new class `SimpleWord`
@@ -143,6 +145,51 @@ We need to create a dataBase migration file, and update the database with our ta
 *The `Up()` and `Down()` methods have instructions to add and remove schema from the database. This lets you version control you database schemma (_Very useful, saves a lot of pain_).
 
 You may also find that the `Up()` and `Down()` methods have instructions for some tables like `"dbo.AspNetRoles"`. These are some out of the box identiy (user login) management functionality. You should be able to find the `"dbo.SimpleWords"` instructions in there some where (_Normally it is a good idea to create a migration, for the identiy management tables first, before you add a `DbSet` of anything else so that they dont get mixed together._)
+
+Now have a look at the database and see what the migratiion did.
+
+ - Select the Quick Search tool (`Ctrl+Q`)
+ - Type `sql`
+ - Select `View > SQL Object Explorer`
+  - This should open a panel on the left
+ - Drill down `SQL Server > Databases > asp-<YOUR PROJECT NAME>-<Date>`
+ - Drill into `Tables`
+ - Have a look around (right click on the table see what options you have)
+
+
+## Adding Controlers and Views
+
+
+Lets add some controlers and views so we can interact with the `SimpleWord` model/table.
+
+ - Right click on the `Controlers` Folder
+ - Add > Controler
+ - Choose MVC 5 Controler with Views, using Entity Framework
+ - Choose `SimpleWord` for the Model Class
+ - Choose `ApplicationDbContext` for the Data Context class
+ - Click Add
+ 
+This will generate a Controler `SimpleWordControler` with actions for CRUD operations; and Views for each action.
+
+ASP.NET MVC follows a convention that if you navigate to http://<siteName>/<controlerName>/<action> (i.e. http://<siteName>/SimpleWord/Index) it will take you to the class <controlername>Controler (i.e, `SimpleWordControler`) and call the method <action>  (i.e, `Index()`). If you don't supply an action name it will default to `Index`. If you don't supply a controler name it will default to the `HomeControler` class. 
+
+
+Have a look at The methods in the `SimpleWordControler` See what it is doing with the `ApplicationDbContext`. You will see that inside each action method there is a call to `View()` In some, an object is passed into the `View()` method. The View() method follows a convention. It will render a View template in the `Views` folder. Inside the `Views` folder the will be a subfolder `SimpleWord` inside that there will be a view for each of the action methods (i.e., `Index.cshtml` for the `Index()` method). 
+Have a look at the `Views/SimpleWord/Index.cshtml`
+ - Right click inside the `Index()` method.
+ - Click Go To View
+  - This is a quick way of navagating to the view for a given action method
+  - You can also click on `View()`, press `F12` , select the view 
+  - 
+  
+You will see html mixed up with a bunch of `@`s and some code. This is the razor templating language. Where you see `@`s is where we are mixing in code elements with the html.
+
+At the top it says: `@model IEnumerable<WebApplication1.Models.SimpleWord>` this mean that it is expecting to be passed a model that is an IEnumerable collection of `SimpleWord`s
+
+
+
+
+
 
 
 
